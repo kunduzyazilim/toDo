@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<form method="post"> {% csrf_token %}
+    <div id="myDIV" class="header">
+      <h2 style="margin:10px">{{ PageTitle }}</h2>
+      {{ form }}
+      <button onclick="newElement()" class="addBtn">Ekle</button>
+    </div>
+</form>
+
+<ul id="myUL">
+  <li>Hit the gym - 27.01.2018</li>
+  <li class="checked">Pay bills</li>
+  <li>Meet George</li>
+  <li>Buy eggs</li>
+  <li>Read a book</li>
+  <li>Organize office</li>
+</ul>
+<script src="index.js"></script>
+
+</body>
+</html>
