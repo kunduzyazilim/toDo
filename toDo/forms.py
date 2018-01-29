@@ -7,8 +7,3 @@ class toDoListForm (forms.Form):
                "name":"gorev"}
     )
     )
-    gonder = forms.(widget=forms.(
-        attrs={"class": "addBtn",
-               "onclick":"newelement()"}
-    )
-    )

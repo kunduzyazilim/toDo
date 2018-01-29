@@ -15,11 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import toDo_List,styleCss,indexJs
+from .views import toDo_List
 
 urlpatterns = [
     path(r'',toDo_List),
-    path(r'*style.css/', indexJs),
-    path(r'*index.js/', styleCss),
     path(r'admin/', admin.site.urls),
 ]
