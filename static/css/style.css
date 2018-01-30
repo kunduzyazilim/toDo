@@ -115,3 +115,7 @@ input {
 .addBtn:hover {
   background-color: #bbb;
 }
+
+.baslik{
+  margin:10px;
+}
