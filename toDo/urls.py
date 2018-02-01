@@ -1,4 +1,3 @@
-#-*- coding: utf-8 -*-
 """toDo URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import toDo_List
+from .views import toDo_List,userLogin
 
 urlpatterns = [
     path(r'',toDo_List),
+    path(r'girisYap/', userLogin),
     path(r'admin/', admin.site.urls),
 ]
