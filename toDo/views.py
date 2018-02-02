@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import toDoListForm, userLoginForm
@@ -34,16 +34,41 @@ def userLogin(request):
         "form": loginForm,
         "hata": hata
     }
+    print(request.user.is_authenticated)
     if loginForm.is_valid():
         print(loginForm.cleaned_data)
         username = loginForm.cleaned_data.get("usrname")
         password = loginForm.cleaned_data.get("pswd")
         user = authenticate(request, username=username, password=password)
+        print(user)
         print(request.user.is_authenticated)
         if user is not None:
-            login(request, user)
             print(request.user.is_authenticated)
+            login(request, user)
             return redirect("/tasks/")
         else:
             hata.append("Lütfen Giriş Yapınız...")
     return render(request, 'login.html', context)
+
+# def register(request):
+#     hata=[]
+#     loginForm = userLoginForm(request.POST or None)
+#     context = {
+#         "PageTitle": "CyprusBooking To-Do-List",
+#         "form": loginForm,
+#         "hata": hata
+#     }
+#     print(request.user.is_authenticated)
+#     if loginForm.is_valid():
+#         print(loginForm.cleaned_data)
+#         username = loginForm.cleaned_data.get("usrname")
+#         password = loginForm.cleaned_data.get("pswd")
+#         user = authenticate(request, username=username, password=password)
+#         print(request.user.is_authenticated)
+#         if user is not None:
+#             login(request, user)
+#             print(request.user.is_authenticated)
+#             #return redirect("/tasks/")
+#         else:
+#             hata.append("Lütfen Giriş Yapınız...")
+#     return render(request, 'register.html', context)

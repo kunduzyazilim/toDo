@@ -19,6 +19,6 @@ from .views import toDo_List, userLogin
 
 urlpatterns = [
     path(r'', userLogin),
-    path(r'tasks/',toDo_List ),
+    path(r'tasks/', toDo_List),
     path(r'admin/', admin.site.urls),
 ]
