@@ -13,10 +13,29 @@ class toDoListForm (forms.Form):
     )
 
 class userLoginForm (forms.Form):
-    loginPage = forms.CharField(
+    userName = forms.CharField(
+        label="Kullanıcı Adı : ",
         widget=forms.TextInput(attrs={
-            "id":"myInput",
+            "id":"usrName",
+            "class":"form-control",
             "placeholder":"Kullanıcı Adınızı Girin...",
             "name":"usrname",
+        })
+    )
+    passwd = forms.CharField(
+        label="Şifre : ",
+        widget=forms.PasswordInput(attrs={
+            "id":"sifre",
+            "class": "form-control",
+            "name": "pswd",
+        })
+    )
+    remember = forms.BooleanField(
+        label="Beni Hatırla",
+        required=False,
+        widget=forms.CheckboxInput(attrs={
+            "id":"hatirla",
+            "class": "form-check-input",
+            "name": "remember",
         })
     )
