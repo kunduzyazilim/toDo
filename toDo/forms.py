@@ -30,12 +30,12 @@ class userLoginForm (forms.Form):
             "name": "pswd",
         })
     )
-    remember = forms.BooleanField(
-        label="Beni Hatırla",
-        required=False,
-        widget=forms.CheckboxInput(attrs={
-            "id":"hatirla",
-            "class": "form-check-input",
-            "name": "remember",
-        })
-    )
+    # remember = forms.BooleanField(
+    #     label="Beni Hatırla",
+    #     required=False,
+    #     widget=forms.CheckboxInput(attrs={
+    #         "id":"hatirla",
+    #         "class": "form-check-input",
+    #         "name": "remember",
+    #     })
+    # )
