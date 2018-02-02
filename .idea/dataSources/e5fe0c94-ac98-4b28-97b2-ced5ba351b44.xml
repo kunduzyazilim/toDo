@@ -483,7 +483,7 @@ model</ColNames>
     <column id="108" parent="17" name="seq">
       <Position>2</Position>
     </column>
-    <column id="109" parent="18" name="todoId">
+    <column id="109" parent="18" name="id">
       <Position>1</Position>
       <DataType>INTEGER|0</DataType>
       <SequenceIdentity>1</SequenceIdentity>
@@ -503,7 +503,7 @@ model</ColNames>
       <DefaultExpression>0</DefaultExpression>
     </column>
     <key id="113" parent="18">
-      <ColNames>todoId</ColNames>
+      <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="114" parent="18" name="toDoList_Tab_auth_user_id_fk">
