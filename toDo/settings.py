@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +26,8 @@ SECRET_KEY = 'aj(%tckri#1_xtkpn-mugdh5nr0-5_ub1e_-p%62i@t*^7#any'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.33']
+ALLOWED_HOSTS = ['127.0.0.1']
+#ALLOWED_HOSTS = ['192.168.1.33']
 
 
 # Application definition
@@ -37,9 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
-    #'django.contrib.admindocs',
-    'toDo'
 ]
 
 MIDDLEWARE = [
@@ -57,8 +56,7 @@ ROOT_URLCONF = 'toDo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

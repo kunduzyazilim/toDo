@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import toDoListForm, userLoginForm
 
-
+@login_required(login_url='auth/login.html')
 def toDo_List(request):
     toDoList_Form = toDoListForm(request.POST or None)
     context = {
@@ -22,53 +23,31 @@ def toDo_List(request):
             hata.append(u'GÖREV GİRMELİSİNİZ !')
         if hata:
             return HttpResponse(u'Eksik Bırakılan Yerleri Düzeltip Yeniden gönderin : %s'.join(hata))
-
     return render(request, 'todolist.html', context)
 
-
 def userLogin(request):
-    hata=[]
+    hata = []
     loginForm = userLoginForm(request.POST or None)
     context = {
-        "PageTitle": "CyprusBooking To-Do-List",
+        "PageTitle": "SIGN-IN",
         "form": loginForm,
         "hata": hata
     }
-    print(request.user.is_authenticated)
     if loginForm.is_valid():
         print(loginForm.cleaned_data)
-        username = loginForm.cleaned_data.get("usrname")
-        password = loginForm.cleaned_data.get("pswd")
+        username = loginForm.cleaned_data.get('usrname')
+        password = loginForm.cleaned_data.get('pswd')
+        # hatirla = loginForm.cleaned_data.get('remember')
         user = authenticate(request, username=username, password=password)
         print(user)
         print(request.user.is_authenticated)
         if user is not None:
             print(request.user.is_authenticated)
             login(request, user)
-            return redirect("/tasks/")
+            return redirect("/tasks")
         else:
-            hata.append("Lütfen Giriş Yapınız...")
-    return render(request, 'login.html', context)
+            hata.append("Kullanıcı adı veya Şifreniz yanlış...")
+    return render(request, 'auth/login.html', context)
 
-# def register(request):
-#     hata=[]
-#     loginForm = userLoginForm(request.POST or None)
-#     context = {
-#         "PageTitle": "CyprusBooking To-Do-List",
-#         "form": loginForm,
-#         "hata": hata
-#     }
-#     print(request.user.is_authenticated)
-#     if loginForm.is_valid():
-#         print(loginForm.cleaned_data)
-#         username = loginForm.cleaned_data.get("usrname")
-#         password = loginForm.cleaned_data.get("pswd")
-#         user = authenticate(request, username=username, password=password)
-#         print(request.user.is_authenticated)
-#         if user is not None:
-#             login(request, user)
-#             print(request.user.is_authenticated)
-#             #return redirect("/tasks/")
-#         else:
-#             hata.append("Lütfen Giriş Yapınız...")
-#     return render(request, 'register.html', context)
+def logout(request):
+    logout(request)
