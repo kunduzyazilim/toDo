@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from .views import toDo_List, userLogin
 
+admin.autodiscover()
+
 urlpatterns = [
     path(r'', userLogin),
     path(r'tasks/', toDo_List),
-    path(r'admincb/', admin.site.urls),
+    path(r'admin/', admin.site.urls),
 ]

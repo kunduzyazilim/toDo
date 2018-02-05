@@ -2,22 +2,31 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import *
 from .forms import toDoListForm, userLoginForm
+from .models import *
 
 @login_required(login_url='auth/login.html')
 def toDo_List(request):
     toDoList_Form = toDoListForm(request.POST or None)
+    tasks = Todolist.objects.all()
+    act='class="checked"'
     context = {
         "PageTitle": "CyprusBooking To-Do-List",
         "form": toDoList_Form,
+        "tasks":tasks,
     }
     if toDoList_Form.is_valid():
         print(toDoList_Form.cleaned_data)
     if request.method == "POST":
-        print(request.POST)
-        gorev = request.POST.get('gorev')
-        print(gorev)
+        if request.POST.get('myform'):
+            gorev = request.POST.get('gorev')
+            taskAdd=Todolist(todoicerik=gorev,yapildi=0,user_id=request.user.id)
+            taskAdd.save()
+        if request.POST.get('tasksil'):
+            sil=request.POST.get('u')
+            taskSil=Todolist.objects.get(id=sil)
+            taskSil.delete()
         hata = []
         if not (gorev):
             hata.append(u'GÖREV GİRMELİSİNİZ !')
@@ -44,7 +53,7 @@ def userLogin(request):
         if user is not None:
             print(request.user.is_authenticated)
             login(request, user)
-            return redirect("/tasks")
+            return redirect("/tasks/")
         else:
             hata.append("Kullanıcı adı veya Şifreniz yanlış...")
     return render(request, 'auth/login.html', context)

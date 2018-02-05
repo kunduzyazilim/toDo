@@ -20,14 +20,22 @@
 {% if hata %}
     <div class="alert alert-warning"> {{ hata|unordered_list }}</div>
 {% endif %}
-
+<form method="post" name="sil">{% csrf_token %}
 <ul id="myUL">
-    <li>Hit the gym || 27.01.2018</li>
-    <li class="checked">Pay bills</li>
+<li class="checked">test</li>
+    {% for u in tasks %}
+    <li>
+    <div class="row">
+        <div class="col-10 float-left"><input type="text" hidden name="tasksil" value="{{ u.id }}"> {{ u.todoicerik }} <div class="col-2 float-right"><input class="btn-info" type="submit" value="X">
+        </div></div>
+        </div>
+    </li>
+    {% endfor %}
 </ul>
+</form>
 </div>
 
-<script src="{% static 'js/index.js' %}"></script>
+<!--<script src="{% static 'js/index.js' %}"></script>-->
 
 </body>
 </html>
