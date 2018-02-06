@@ -7,28 +7,33 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body>
+<body onload="document.loginForm.userName.focus();">
 <div class="container">
-    <form method="post" class="login-form">{% csrf_token %}
+<div class="row">
+
+
+<div class="col"></div><div class="col">
+    <form method="post" class="login-form" name="loginForm">{% csrf_token %}
         <h2 class="text-center">{{ PageTitle }}</h2>
         <div class="form-group">
-            <label for="{{ form.userName.id_for_label }}">{{ form.userName.label }}</label>
-            {{ form.userName }}
+            <label for="{{ form.usrname.id_for_label }}">{{ form.usrname.label }}</label>
+            {{ form.usrname }}
         </div>
         <div class="form-group">
-            <label for="{{ form.passwd.id_for_label }}">{{ form.passwd.label }}</label>
-            {{ form.passwd }}
+            <label for="{{ form.pswd.id_for_label }}">{{ form.pswd.label }}</label>
+            {{ form.pswd }}
         </div>
         <div class="form-check">
             <label class="form-check-label">
                 {{ form.remember }} {{ form.remember.label }}
             </label>
         </div>
-        <input type="submit" class="btn btn-primary" value="Giriş Yap"/>
+        <input type="submit" class="btn btn-primary form-control" value="Giriş Yap"/>
     </form>
     {% if hata %}
-        <div class="alert alert-warning text-center"> {{ hata|unordered_list }}</div>
+        <br/><div class="alert alert-warning text-center"> {{ hata|unordered_list }}</div>
     {% endif %}
+</div><div class="col"></div>
 </div>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
