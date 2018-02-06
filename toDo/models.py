@@ -142,6 +142,7 @@ class Todolist(models.Model):
     todoicerik = models.TextField(db_column='todoIcerik')  # Field name made lowercase.
     yapildi = models.BooleanField()
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    date_islenis = models.DateTimeField()
 
     class Meta:
         managed = False

@@ -1,31 +1,31 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import *
 from .forms import toDoListForm, userLoginForm
 from .models import *
 
-@login_required(login_url='auth/login.html')
+
+@login_required(login_url='/')
 def toDo_List(request):
     toDoList_Form = toDoListForm(request.POST or None)
     tasks = Todolist.objects.all()
-    act='class="checked"'
+    act = 'class="checked"'
     context = {
         "PageTitle": "CyprusBooking To-Do-List",
         "form": toDoList_Form,
-        "tasks":tasks,
+        "tasks": tasks,
     }
     if toDoList_Form.is_valid():
         print(toDoList_Form.cleaned_data)
     if request.method == "POST":
         if request.POST.get('myform'):
             gorev = request.POST.get('gorev')
-            taskAdd=Todolist(todoicerik=gorev,yapildi=0,user_id=request.user.id)
+            taskAdd = Todolist(todoicerik=gorev, yapildi=0, user_id=request.user.id)
             taskAdd.save()
-        if request.POST.get('tasksil'):
-            sil=request.POST.get('u')
-            taskSil=Todolist.objects.get(id=sil)
+        if request.GET.get('tasksil'):
+            sil = request.POST.get('u')
+            taskSil = Todolist.objects.get(id=sil)
             taskSil.delete()
         hata = []
         if not (gorev):
@@ -33,6 +33,7 @@ def toDo_List(request):
         if hata:
             return HttpResponse(u'Eksik Bırakılan Yerleri Düzeltip Yeniden gönderin : %s'.join(hata))
     return render(request, 'todolist.html', context)
+
 
 def userLogin(request):
     hata = []
@@ -47,16 +48,16 @@ def userLogin(request):
         username = loginForm.cleaned_data.get('usrname')
         password = loginForm.cleaned_data.get('pswd')
         # hatirla = loginForm.cleaned_data.get('remember')
-        user = authenticate(request, username=username, password=password)
-        print(user)
-        print(request.user.is_authenticated)
+        user = authenticate(username=username, password=password)
         if user is not None:
-            print(request.user.is_authenticated)
-            login(request, user)
-            return redirect("/tasks/")
+            if user.is_active:
+                login(request,user)
+                return redirect("/tasks/")
         else:
             hata.append("Kullanıcı adı veya Şifreniz yanlış...")
     return render(request, 'auth/login.html', context)
 
+
 def logout(request):
     logout(request)
+    redirect(request,"/")

@@ -13,16 +13,16 @@ class toDoListForm (forms.Form):
     )
 
 class userLoginForm (forms.Form):
-    userName = forms.CharField(
+    usrname = forms.CharField(
         label="Kullanıcı Adı : ",
         widget=forms.TextInput(attrs={
-            "id":"usrName",
+            "id":"userName",
             "class":"form-control",
             "placeholder":"Kullanıcı Adınızı Girin...",
             "name":"usrname",
         })
     )
-    passwd = forms.CharField(
+    pswd = forms.CharField(
         label="Şifre : ",
         widget=forms.PasswordInput(attrs={
             "id":"sifre",
