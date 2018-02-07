@@ -15,13 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import toDo_List, userLogin
-
-admin.autodiscover()
+from .views import toDo_List, userLogin, task_sil
 
 urlpatterns = [
     path(r'', userLogin),
     path(r'tasks/', toDo_List),
-    path(r'tasks/', toDo_List),
+    path(r'tasks/delete/(?<pk>[0-9]+)/$', task_sil, name="tDelete"),
     path(r'admin/', admin.site.urls),
 ]
