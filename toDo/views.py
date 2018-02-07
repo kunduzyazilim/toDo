@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import *
 from .forms import toDoListForm, userLoginForm
 from .models import *
-from django.views.generic.edit import DeleteView
-from django.urls import reverse_lazy
+# from django.views.generic.edit import DeleteView
+# from django.urls import reverse_lazy
 
 @login_required(login_url='/')
 def toDo_List(request):
@@ -32,9 +32,9 @@ def toDo_List(request):
     return render(request, 'todolist.html', context)
 
 
-class task_sil(DeleteView):
-        model = Todolist
-        success_url = reverse_lazy('Todolist')
+# class task_sil(DeleteView):
+#         model = Todolist
+#         success_url = reverse_lazy('Todolist')
 
 def userLogin(request):
     hata = []
@@ -61,6 +61,6 @@ def userLogin(request):
     return render(request, 'auth/login.html', context)
 
 
-def logout(request):
+def logout_task(request):
     logout(request)
-    redirect(request, "/")
+    return redirect("/")
