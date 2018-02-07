@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from .views import toDo_List, userLogin, logout_task
 
+
 urlpatterns = [
     path(r'', userLogin),
     path(r'tasks/', toDo_List),
