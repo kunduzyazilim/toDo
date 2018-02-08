@@ -13,13 +13,17 @@
 <body onload="document.myform.gorev.focus();">
 
 <div class="container">
-    <div class="text-right"><a href="/logout" class="btn btn-default">Çıkış Yap</a></div>
+    <div class="text-right"><a href="/logout" class="btn btn-secondary">Çıkış Yap</a></div>
     <form method="post" name="myform">
         {% csrf_token %}
         <div id="myDIV" class="header">
             <h2 class="baslik">{{ PageTitle }}</h2>
-            {{ form }}
-            <input type="submit" class="addBtn" value="Ekle"/> <!--onclick="newElement()"-->
+            <div class="row">
+                <div class="col-9">{{ form }}</div>
+                <div class="col-3">
+                    <input type="submit" class="btn btn-light form-control" value="Ekle"/> <!--onclick="newElement()"-->
+                </div>
+            </div>
         </div>
     </form>
     {% if hata %}
