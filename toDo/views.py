@@ -18,7 +18,7 @@ def toDo_List(request):
     context = {
         "PageTitle": "CyprusBooking To-Do-List",
         "form": toDoList_Form,
-        "tasks": tasks.order_by("yapildi","-date_islenis"),
+        "tasks": tasks.order_by("yapildi", "-date_islenis"),
         "hata": hata,
     }
     if toDoList_Form.is_valid():
