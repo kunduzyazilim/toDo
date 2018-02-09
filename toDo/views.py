@@ -15,11 +15,10 @@ def toDo_List(request):
     tasks = Todolist.objects.all()
     user = request.user
     hata = []
-    # act = 'class="checked"'
     context = {
         "PageTitle": "CyprusBooking To-Do-List",
         "form": toDoList_Form,
-        "tasks": tasks.order_by("yapildi"),
+        "tasks": tasks.order_by("yapildi","-date_islenis"),
         "hata": hata,
     }
     if toDoList_Form.is_valid():
@@ -47,7 +46,6 @@ def userLogin(request):
         "hata": hata
     }
     if loginForm.is_valid():
-        print(loginForm.cleaned_data)
         username = loginForm.cleaned_data.get('usrname')
         password = loginForm.cleaned_data.get('pswd')
         # hatirla = loginForm.cleaned_data.get('remember')
