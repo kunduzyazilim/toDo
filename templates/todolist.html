@@ -4,40 +4,51 @@
     <title>{{ PageTitle }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/todo.css' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 </head>
 <body onload="document.myform.gorev.focus();">
 
 <div class="container">
-<div class="text-right">Çıkış Yap</div>
-<form method="post" name="myform">
-    {% csrf_token %}
-<div id="myDIV" class="header">
-  <h2 class="baslik">{{ PageTitle }}</h2>
-  {{ form }}
-  <input type="submit" class="addBtn" value="Ekle"/> <!--onclick="newElement()"-->
-</div>
-</form>
-{% if hata %}
-    <div class="alert alert-warning"> {{ hata|unordered_list }}</div>
-{% endif %}
-<form method="post" name="sil">{% csrf_token %}
-<ul id="myUL">
-<li class="checked">test</li>
-    {% for u in tasks %}
-    <li>
-    <div class="row">
-        <div class="col-10 float-left"><input type="text" hidden name="tasksil" value="{{ u.id }}"> {{ u.todoicerik }} <div class="col-2 float-right"><input class="btn-info" type="submit" value="X">
-        </div></div>
+    <div class="text-right"><a href="/logout" class="btn btn-secondary">Çıkış Yap</a></div>
+    <form method="post" name="myform">
+        {% csrf_token %}
+        <div id="myDIV" class="header">
+            <h2 class="baslik">{{ PageTitle }}</h2>
+            <div class="row">
+                <div class="col-9">{{ form }}</div>
+                <div class="col-3">
+                    <input type="submit" class="btn btn-light form-control" value="Ekle"/> <!--onclick="newElement()"-->
+                </div>
+            </div>
         </div>
-    </li>
-    {% endfor %}
-</ul>
-</form>
+    </form>
+    {% if hata %}
+        <div class="alert alert-warning"> {{ hata|unordered_list }}</div>
+    {% endif %}
+    <ul id="myUL">
+        {% for u in tasks %}
+            {% if not u.yapildi %}
+                <li>
+                    {% else %}
+                <li class="checked">
+            {% endif %}
+        <div class="row">
+            <div class="col-12 float-left"><pre>{{ u.todoicerik }} -
+                <small>{{ u.date_islenis }}</small></pre>
+                <div class="col float-md-right float-sm-right" hidden>
+                    <a class="btn btn-danger" href="">X</a>
+                    <button class="btn btn-success">&#10004;</button>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
 </div>
 
 <!--<script src="{% static 'js/index.js' %}"></script>-->
-
 </body>
 </html>
