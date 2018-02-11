@@ -4,6 +4,7 @@
     <title>{{ PageTitle }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/todo.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
@@ -39,9 +40,16 @@
         <div class="row">
             <div class="col-12 float-left"><pre>{{ u.todoicerik }} -
                 <small>{{ u.date_islenis }}</small></pre>
-                <div class="col float-md-right float-sm-right" hidden>
-                    <a class="btn btn-danger" href="">X</a>
-                    <button class="btn btn-success">&#10004;</button>
+                <div class="col float-md-right float-sm-right">
+                    {% if kullanici.is_staff %}
+                        <a class="btn btn-danger" href="/tasks/delete?id={{ u.id }}">X</a>
+                        <a class="btn btn-warning" href="/tasks/update?id={{ u.id }}"><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-success" href="/tasks/yapildi?id={{ u.id }}">&#10004;</a>
+                    {% else %}
+                        <a class="btn btn-warning" href="/tasks/update?id={{ u.id }}"><i class="fa fa-pencil"></i>
+                            Düzenle</a>
+                        <a class="btn btn-success" href="/tasks/yapildi?id={{ u.id }}">&#10004; Yapıldı</a>
+                    {% endif %}
                 </div>
             </div>
         </li>

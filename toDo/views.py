@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import *
 from .forms import toDoListForm, userLoginForm
 from .models import *
 
-
-# from django.views.generic.edit import DeleteView
-# from django.urls import reverse_lazy
-
 @login_required(login_url='/')
 def toDo_List(request):
     toDoList_Form = toDoListForm(request.POST or None)
     tasks = Todolist.objects.all()
+    user=AuthUser.objects.all()
     user = request.user
     hata = []
     context = {
@@ -20,6 +18,7 @@ def toDo_List(request):
         "form": toDoList_Form,
         "tasks": tasks.order_by("yapildi", "-date_islenis"),
         "hata": hata,
+        "kullanici":user,
     }
     if toDoList_Form.is_valid():
         if request.method == "POST":
@@ -32,10 +31,32 @@ def toDo_List(request):
                 return HttpResponse(u'Eksik Bırakılan Yerleri Düzeltip Yeniden gönderin : %s'.join(hata))
     return render(request, 'todolist.html', context)
 
+@login_required(login_url='/')
+def task_sil(request):
+    taskId=request.GET.get('id')
+    Todolist.objects.filter(id=taskId).delete()
+    return redirect("/tasks")
 
-# class task_sil(DeleteView):
-#         model = Todolist
-#         success_url = reverse_lazy('Todolist')
+@login_required(login_url='/')
+def task_update(request,id):
+    instance = get_object_or_404(Todolist, id=id)
+    form = toDoListForm(request.POST or None, instance=instance)
+    hata = []
+    tasks = Todolist.objects.all()
+    context = {
+        "PageTitle": "CyprusBooking To-Do-List",
+        "form": toDoList_Form,
+        "tasks": tasks.order_by("yapildi", "-date_islenis"),
+        "hata": hata,
+    }
+    if form.is_valid():
+        form.save()
+        return redirect('/tasks')
+    return render(request, 'tasks_update.html', context)
+
+@login_required(login_url='/')
+def task_yapildi(request):
+    print("yapildi")
 
 def userLogin(request):
     hata = []
